@@ -1,0 +1,21 @@
+name: Documentation CI
+
+on:
+  push:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  docs-check:
+    name: docs-check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+      - name: Check documentation files and templates
+        run: python3 scripts/check_repository_docs.py
+      - name: Check whitespace errors in latest commit
+        run: git show --format= --check HEAD
